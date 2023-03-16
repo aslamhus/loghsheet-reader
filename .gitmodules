@@ -1,0 +1,3 @@
+[submodule "src/App/Components/Table"]
+	path = src/App/Components/Table
+	url = https://github.com/aslamhus/Table
