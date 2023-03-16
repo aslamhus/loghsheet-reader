@@ -1,49 +1,50 @@
 import React from 'react';
-import Table from '../Table/Table.js';
+// import Table from '../Table/Table.js';
+// import Table from 'react-bootstrap/Table';
+import { getDate } from '../../utils/utils';
 import './preview.css';
 
 const Preview = React.forwardRef((props, ref) => {
   const { tracks } = props;
-  console.log('tracks', tracks);
   if (!tracks) return null;
 
   return (
     <div ref={ref}>
-      <h1>Preview</h1>
-      {/* {tracks.map((row) => {
-        return <div className="row"></div>;
-      })} */}
-      <Table dataSource={tracks} enableCheckbox={false}>
-        {/* <Table.TitleBar title={'Tracks'} /> */}
-        <Table.Head>
-          <Table.Cell title="Track Title" size="m" />
-          <Table.Cell title="Artist" size="l" right />
-          <Table.Cell title="Album " size="xxs" right />
-        </Table.Head>
-        <Table.Body>
-          <Row></Row>
-        </Table.Body>
-      </Table>
+      <h1 className="pdf-ignore">Preview</h1>
+      <h2 contentEditable suppressContentEditableWarning={true}>
+        Your title
+      </h2>
+      <h3 contentEditable suppressContentEditableWarning={true}>
+        {getDate()}
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Track title</th>
+            <th>Artist</th>
+            <th>Album</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tracks.map((row, index) => {
+            return <Row key={`index-${index}-${row['Track Title']}`} data={row} index={index} />;
+          })}
+        </tbody>
+      </table>
     </div>
   );
 });
 
-const Row = ({ data }) => {
+const Row = ({ data, index }) => {
   //   console.log('data', data);
   return (
-    <Table.Row>
-      <Table.Row.Cells>
-        <Table.Cell size="m">
-          <p>{data['Track Title']}</p>
-        </Table.Cell>
-        <Table.Cell size="l">
-          <p>{data.Artist}</p>
-        </Table.Cell>
-        <Table.Cell size="xxs">
-          <p>{data['Album Title']}</p>
-        </Table.Cell>
-      </Table.Row.Cells>
-    </Table.Row>
+    <tr>
+      <td>{index + 1}</td>
+      <td>{data['Track Title']}</td>
+      <td> {data.Artist}</td>
+      <td> {data['Album Title']}</td>
+    </tr>
   );
 };
 

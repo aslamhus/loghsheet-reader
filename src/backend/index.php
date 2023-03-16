@@ -15,12 +15,16 @@ use Dompdf\Dompdf;
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
 
-$html = file_get_contents('https://aslamhusain.com');
+$data = file_get_contents('php://input');
+$decoded = json_decode($data);
+$html = $decoded->html;
+
+// $html = file_get_contents('https://aslamhusain.com');
 $dompdf->loadHtml($html);
 // $dompdf->loadHtml('YO MAN world');
 
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'landscape');
+// $dompdf->setPaper('A4', 'landscape');
 
 // Render the HTML as PDF
 $dompdf->render();

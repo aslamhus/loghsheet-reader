@@ -3,7 +3,7 @@
         'name' => 'aslamhusain/logsheet-reader',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8932c4ed4abfc82ec98016ce9ea4403bd5306984',
+        'reference' => 'bf9ca411b00129e86418c8d151f8b2210e44bb38',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'aslamhusain/logsheet-reader' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8932c4ed4abfc82ec98016ce9ea4403bd5306984',
+            'reference' => 'bf9ca411b00129e86418c8d151f8b2210e44bb38',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

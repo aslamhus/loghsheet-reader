@@ -28,6 +28,7 @@ export default {
           },
           to: 'backend',
         },
+        { from: './src/.htaccess' },
         // { from: './resources/class-materials', to: 'class-materials' },
         // { from: './resources/images', to: 'images' },
         // { from: './resources/stylesheets', to: 'stylesheets' },

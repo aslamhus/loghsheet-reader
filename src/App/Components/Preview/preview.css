@@ -6,8 +6,27 @@
   font-weight: bold;
   color: rgb(255, 255, 255);
 }
-.table-row .cell p {
-  color: rgb(83, 83, 83);
-  padding: 0.25rem;
-  padding-left: 0.5rem;
+table {
+  width: 100%;
+}
+table th {
+  text-align: left;
+  font-size: 1rem;
+  background: rgb(0, 0, 83);
+  color: rgb(244, 244, 244);
+  padding: 0.75rem 0.5rem;
+  text-transform: uppercase;
+}
+table tr:nth-of-type(even) {
+  background: rgb(234, 234, 234);
+}
+table tr:nth-of-type(odd) {
+  background: white !important;
+}
+
+table td {
+  padding: 0.25rem 0.5rem;
+}
+table td:nth-of-type(1) {
+  color: gray;
 }

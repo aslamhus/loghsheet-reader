@@ -14,7 +14,7 @@ export default merge(common, {
     hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
     hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   devServer: {
     devMiddleware: {
       // publicPath: 'auto',

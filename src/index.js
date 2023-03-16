@@ -9,6 +9,6 @@ window.onload = () => {
 };
 
 if (module.hot) {
-  console.log('incoming hot mod');
+  console.log('incoming hot! mod');
   module.hot.accept();
 }

@@ -1,20 +1,24 @@
 import * as pdfjsLib from 'pdfjs-dist/webpack';
 
-const PDF_COLUMNS = [
-  { name: 'Artist', minMax: [], values: [] },
-  { name: 'Album Title', minMax: [], values: [] },
-  { name: 'Track Title', minMax: [], values: [] },
-  { name: 'CanCon', minMax: [] },
-];
+let PDF_COLUMNS;
 
-let tracks = [];
+let tracks;
 
 export const extractTracks = async (file) => {
+  tracks = [];
+  PDF_COLUMNS = [
+    { name: 'Artist', minMax: [], values: [] },
+    { name: 'Album Title', minMax: [], values: [] },
+    { name: 'Track Title', minMax: [], values: [] },
+    { name: 'CanCon', minMax: [] },
+  ];
   const loadingTask = pdfjsLib.getDocument(file);
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
-  const tracks = parseTextContent(text);
-  return tracks;
+
+  const newTracks = parseTextContent(text);
+  console.log('newTracks', newTracks);
+  return [...newTracks];
 };
 
 const getAllTextContent = async (doc) => {
