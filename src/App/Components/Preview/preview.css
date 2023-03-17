@@ -9,10 +9,11 @@
   font-weight: bold;
   color: rgb(255, 255, 255);
 }
-table {
+table.cfuv-tracks {
+  margin-top: 1rem;
   width: 100%;
 }
-table th {
+table.cfuv-tracks th {
   text-align: left;
   font-size: 1rem;
   background: rgb(0, 0, 83);
@@ -20,18 +21,34 @@ table th {
   padding: 0.75rem 0.5rem;
   text-transform: uppercase;
 }
-table tr:nth-of-type(even) {
-  background: rgb(234, 234, 234);
+table.cfuv-tracks tbody tr {
+  border: 1px solid lightgray;
 }
-table tr:nth-of-type(odd) {
-  background: white !important;
+table.cfuv-tracks tr:nth-of-type(even) {
+  background: rgb(239, 239, 239);
+}
+table.cfuv-tracks tr:nth-of-type(odd) {
+  background: rgb(247, 247, 247) !important;
 }
 
-table td {
-  padding: 0.25rem 0.5rem;
-  text-align: top;
+table.cfuv-tracks td {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
   vertical-align: top;
 }
-table td:nth-of-type(1) {
+table.cfuv-tracks td:nth-of-type(1) {
   color: gray;
+}
+
+input {
+  border: none !important;
+  border-bottom: 3px solid black !important;
+  padding: 1rem 0 !important;
+  width: 100% !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  transition: all 0.3s ease;
+}
+input:focus {
+  border-color: dodgerblue !important;
 }

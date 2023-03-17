@@ -2,7 +2,9 @@ import React, { useRef, useState } from 'react';
 import Preview from './Components/Preview';
 import { FileSelect } from '@aslamhus/fileselect';
 import { extractTrackData } from './utils/extractTrackData';
-import { getDate } from './utils/utils';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 // import * as html2pdf from 'html-to-pdf-js';
@@ -12,6 +14,7 @@ export default function App() {
   const [tracks, setTracks] = useState([]);
   const [date, setDate] = useState('');
   const [title, setTitle] = useState('Straight No Chaser');
+  const [host, setHost] = useState('');
   const [showControls, setShowControls] = useState(true);
   const previewRef = useRef();
 
@@ -72,6 +75,7 @@ export default function App() {
   };
 
   const onDateInputChange = (value) => {
+    console.log('d', value);
     setDate(value);
   };
   return (
@@ -82,14 +86,16 @@ export default function App() {
         {tracks.length > 0 && <button onClick={generatePDF}>Save as PDF</button>}
       </div>
       {tracks?.length > 0 && (
-        <Preview
-          ref={previewRef}
-          tracks={tracks}
-          date={date}
-          title={title}
-          onTitleInputChange={onTitleInputChange}
-          onDateInputChange={onDateInputChange}
-        ></Preview>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Preview
+            ref={previewRef}
+            tracks={tracks}
+            date={date}
+            title={title}
+            onTitleInputChange={onTitleInputChange}
+            onDateInputChange={onDateInputChange}
+          ></Preview>
+        </LocalizationProvider>
       )}
     </div>
   );

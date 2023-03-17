@@ -2,11 +2,12 @@ import React, { useRef } from 'react';
 // import Table from '../Table/Table.js';
 // import Table from 'react-bootstrap/Table';
 // import Form from 'react-bootstrap/Form';
-import Datetime from 'react-datetime';
-
+import DatePicker from 'react-datepicker';
 import { getDate } from '../../utils/utils';
-import 'react-datetime/css/react-datetime.css';
 import './preview.css';
+
+import 'react-datepicker/dist/react-datepicker.css';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Preview = React.forwardRef((props, ref) => {
   const { tracks, date, title, onTitleInputChange, onDateInputChange } = props;
@@ -26,26 +27,22 @@ const Preview = React.forwardRef((props, ref) => {
     }
   };
   if (!tracks) return null;
-
+  console.log('date', date);
   return (
     <div className="preview-container" ref={ref}>
       {/* <h1 className="pdf-ignore">Preview</h1> */}
       <input type="text" name="title" onChange={handleChange} className="pdf-title" value={title} />
-      <Datetime initialValue={getDate(date)} dateFormat={'MMM Do, YYYY'} />
-      {/* <input
-        type="text"
-        name="date"
-        onChange={handleChange}
-        className="pdf-date"
-        value={getDate(date)}
-      /> */}
-      {/* <Form.Control
-        type="date"
-        name="date_of_birth"
-        // error={errors.date_of_birth}
-        ref={registerRef}
-      /> */}{' '}
-      <table>
+      <DatePicker dateFormat="MMM d, yyyy" selected={new Date(date)} onChange={onDateInputChange} />
+      <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Host
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item href="#/action-1">Shaukat Husain</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Demis Tsimon</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <table className="cfuv-tracks">
         <thead>
           <tr>
             <th>#</th>

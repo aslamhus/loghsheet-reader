@@ -13,10 +13,10 @@ export default merge(common, {
   output: {
     chunkFilename: '[id][hash].js',
   },
-  // output: {
-  //   hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
-  //   hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
-  // },
+  output: {
+    hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
+    hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
+  },
   devtool: 'eval-source-map',
   devServer: {
     devMiddleware: {
@@ -31,7 +31,7 @@ export default merge(common, {
     },
     open: ['/index.html'],
     compress: true,
-    hot: false,
+    hot: true,
 
     host: 'local.aslamhusain',
     port: 9000,

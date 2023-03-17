@@ -13,7 +13,7 @@ export const extractTrackData = async (file) => {
   const loadingTask = pdfjsLib.getDocument(file);
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
-  // console.log('text', text);
+  console.log('text', text);
   const trackData = parseTextContent(text);
   return trackData;
 };
