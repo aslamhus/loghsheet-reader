@@ -1,8 +1,8 @@
 import * as pdfjsLib from 'pdfjs-dist/webpack';
 
-let PDF_COLUMNS, tracks, date;
+let PDF_COLUMNS, tracks;
 
-export const extractTracks = async (file) => {
+export const extractTrackData = async (file) => {
   tracks = [];
   PDF_COLUMNS = [
     { name: 'Artist', minMax: [], values: [] },
@@ -13,9 +13,9 @@ export const extractTracks = async (file) => {
   const loadingTask = pdfjsLib.getDocument(file);
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
-  console.log('text', text);
-  const newTracks = parseTextContent(text);
-  return [...newTracks];
+  // console.log('text', text);
+  const trackData = parseTextContent(text);
+  return trackData;
 };
 
 const getAllTextContent = async (doc) => {
@@ -29,9 +29,11 @@ const getAllTextContent = async (doc) => {
 };
 
 const parseTextContent = (textContent) => {
+  const date = findDate(textContent);
   parseColumns(textContent);
   findFields(textContent);
-  return filterRows();
+  const tracks = filterRows();
+  return { date, tracks };
 };
 
 const parseColumns = (textContent) => {
@@ -78,6 +80,19 @@ const findFields = (textContent) => {
       trackObj = {};
     }
   });
+};
+
+const findDate = (textContent) => {
+  let date,
+    index = 0;
+  for (let item of textContent.items) {
+    if (item.str.indexOf('Date') > -1) {
+      date = textContent.items[index + 1].str;
+      break;
+    }
+    index++;
+  }
+  return date;
 };
 
 const filterRows = () => {

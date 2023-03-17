@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import Preview from './Components/Preview';
 import { FileSelect } from '@aslamhus/fileselect';
-import { extractTracks } from './utils/extractTracks';
+import { extractTrackData } from './utils/extractTrackData';
+import { getDate } from './utils/utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 // import * as html2pdf from 'html-to-pdf-js';
@@ -9,14 +10,19 @@ import './app.css';
 
 export default function App() {
   const [tracks, setTracks] = useState([]);
+  const [date, setDate] = useState('');
+  const [title, setTitle] = useState('Straight No Chaser');
   const [showControls, setShowControls] = useState(true);
   const previewRef = useRef();
+
   const selectFiles = async (event) => {
     // setTracks([]);
     const fs = new FileSelect();
     const files = await fs.select();
     const blob = URL.createObjectURL(files[0]);
-    setTracks(await extractTracks(blob));
+    const { tracks, date } = await extractTrackData(blob);
+    setDate(date);
+    setTracks(tracks);
   };
 
   const togglePDFIgnoreContent = (bool) => {
@@ -49,7 +55,7 @@ export default function App() {
     console.log('result', pdfBlob);
     const url = URL.createObjectURL(pdfBlob);
     const a = document.createElement('a');
-    a.download = 'mypdf.pdf';
+    a.download = `${title}-${date}.pdf`.replace(/\s/g, '-');
     a.href = url;
     a.click();
 
@@ -60,14 +66,31 @@ export default function App() {
     // doc.save
   };
 
+  const onTitleInputChange = (value) => {
+    console.log('value!', value);
+    setTitle(value);
+  };
+
+  const onDateInputChange = (value) => {
+    setDate(value);
+  };
   return (
     <div className="app">
       <div className="controls pdf-ignore">
         <h1>Logsheet reader</h1>
-        <button onClick={selectFiles}>Select Files</button>
+        <button onClick={selectFiles}>Upload Logsheet</button>
         {tracks.length > 0 && <button onClick={generatePDF}>Save as PDF</button>}
       </div>
-      {tracks?.length > 0 && <Preview ref={previewRef} tracks={tracks}></Preview>}
+      {tracks?.length > 0 && (
+        <Preview
+          ref={previewRef}
+          tracks={tracks}
+          date={date}
+          title={title}
+          onTitleInputChange={onTitleInputChange}
+          onDateInputChange={onDateInputChange}
+        ></Preview>
+      )}
     </div>
   );
 }

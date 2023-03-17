@@ -20,7 +20,8 @@
     "pdfreader": "^3.0.0",
     "puppeteer": "^19.7.5",
     "react-bootstrap": "^2.7.2",
-    "react-bootstrap-icons": "^1.10.2"
+    "react-bootstrap-icons": "^1.10.2",
+    "react-datetime": "^3.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
