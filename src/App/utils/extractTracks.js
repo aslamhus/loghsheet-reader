@@ -1,8 +1,6 @@
 import * as pdfjsLib from 'pdfjs-dist/webpack';
 
-let PDF_COLUMNS;
-
-let tracks;
+let PDF_COLUMNS, tracks, date;
 
 export const extractTracks = async (file) => {
   tracks = [];
@@ -15,9 +13,8 @@ export const extractTracks = async (file) => {
   const loadingTask = pdfjsLib.getDocument(file);
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
-
+  console.log('text', text);
   const newTracks = parseTextContent(text);
-  console.log('newTracks', newTracks);
   return [...newTracks];
 };
 

@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 src/jsPDF-1.3.2/
 /vendor/
+dist

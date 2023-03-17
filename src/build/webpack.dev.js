@@ -11,15 +11,18 @@ export default merge(common, {
     main: './src/index.js',
   },
   output: {
-    hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
-    hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
+    chunkFilename: '[id][hash].js',
   },
+  // output: {
+  //   hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
+  //   hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
+  // },
   devtool: 'eval-source-map',
   devServer: {
     devMiddleware: {
       // publicPath: 'auto',
 
-      publicPath: '',
+      publicPath: 'auto',
       serverSideRender: false,
       writeToDisk: true,
     },
@@ -28,7 +31,7 @@ export default merge(common, {
     },
     open: ['/index.html'],
     compress: true,
-    hot: true,
+    hot: false,
 
     host: 'local.aslamhusain',
     port: 9000,
@@ -50,7 +53,7 @@ export default merge(common, {
                 console.log('browser sync reload');
 
                 // only reload files that match .php extension
-                bs.reload('*.php');
+                // bs.reload('*.php');
               }
             },
           },

@@ -1,1 +1,0 @@
-import puppeteer from"puppeteer";(async()=>{const t=await puppeteer.launch(),a=await t.newPage();await a.goto("https://aslamhusain.com",{waitUntil:"networkidle0"}),await a.emulateMediaType("screen"),await a.pdf({path:"result.pdf",margin:{top:"100px",right:"50px",bottom:"100px",left:"50px"},printBackground:!0,format:"A4"}),await t.close()})();
