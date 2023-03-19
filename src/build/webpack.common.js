@@ -93,8 +93,7 @@ export default {
     alias: {
       // '@': path.resolve(__dirname, './src'),
       //   '@images': path.resolve(__dirname, '../../images/'),
-      //   '@sounds': path.resolve(__dirname, '../../sounds/'),
-
+      '@images': path.resolve(__dirname, '../../images/'),
       '@api': path.resolve(__dirname, '../App/api'),
       '@components': path.resolve(__dirname, '../App/Components'),
     },
