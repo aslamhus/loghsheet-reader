@@ -1,5 +1,5 @@
 export const saveShow = async ({ title, host, date, tracks }) => {
-  return fetch('/logsheet-reader/api/shows/update.php', {
+  return fetch('/straight-no-chaser/api/shows/update.php', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -20,7 +20,7 @@ export const saveShow = async ({ title, host, date, tracks }) => {
 
 export const getShows = async (id) => {
   const showQuery = id ? `?id=${id}` : '';
-  return fetch(`/logsheet-reader/api/shows/get.php${showQuery}`, {
+  return fetch(`/straight-no-chaser/api/shows/get.php${showQuery}`, {
     method: 'GET',
   }).then((res) => {
     if (res.ok) {

@@ -11,7 +11,7 @@ export default function App() {
   return (
     <React.StrictMode>
       <div className="app">
-        <Router basename="/logsheet-reader">
+        <Router basename="/straight-no-chaser">
           <Routes>
             <Route path="/" element={<LogsheetReader />}></Route>
             <Route path="/reader" element={<LogsheetReader />}></Route>

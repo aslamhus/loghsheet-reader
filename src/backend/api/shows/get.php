@@ -11,7 +11,7 @@ use LogsheetReader\Database\DB;
 use LogsheetReader\Shows\Shows;
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/logsheet-reader/dist/backend/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/straight-no-chaser/dist/backend/config.php';
 
 if(
     !API::ValidateOrigin(['http://localhost:3003','https://aslamhusain.com']) ||

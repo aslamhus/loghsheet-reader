@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'aslamhusain/logsheet-reader',
+        'name' => 'aslamhusain/straight-no-chaser',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '8932c4ed4abfc82ec98016ce9ea4403bd5306984',
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'aslamhusain/logsheet-reader' => array(
+        'aslamhusain/straight-no-chaser' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '8932c4ed4abfc82ec98016ce9ea4403bd5306984',

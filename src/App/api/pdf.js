@@ -6,7 +6,7 @@ export const generatePDF = async () => {
   togglePDFIgnoreContent(true);
 
   // setShowControls(true);
-  const pdfBlob = await fetch('/logsheet-reader/api/pdf/get.php', {
+  const pdfBlob = await fetch('/straight-no-chaser/api/pdf/get.php', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

@@ -37,7 +37,7 @@ export default merge(common, {
   plugins: [
     new BrowserSyncPlugin(
       {
-        proxy: 'http://local.aslamhusain:8888/logsheet-reader/',
+        proxy: 'http://local.aslamhusain:8888/straight-no-chaser/',
         port: 3003,
         startPath: './index.html',
         files: [

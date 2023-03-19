@@ -3,10 +3,10 @@ DirectoryIndex index.html
 ### Redirect all requests to document root (public folder)
 RewriteEngine On
 
-RewriteBase /logsheet-reader/
+RewriteBase /straight-no-chaser/
 # avoid infinite loop
 RewriteCond %{REQUEST_URI} !dist
-# all requests to logsheet-reader get redirected to dist folder
+# all requests to straight-no-chaser get redirected to dist folder
 RewriteRule ^(.*)$ dist/$1 [NC]
 
 #RewriteCond %{REQUEST_URI} admin

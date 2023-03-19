@@ -8,7 +8,7 @@ export default {
   output: {
     path: path.resolve(__dirname, '../../dist'),
     filename: 'scripts/[name].bundle.js',
-    publicPath: '/logsheet-reader/',
+    publicPath: '/straight-no-chaser/',
   },
   plugins: [
     new HtmlWebpackPlugin({
