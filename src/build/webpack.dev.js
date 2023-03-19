@@ -12,8 +12,6 @@ export default merge(common, {
   },
   output: {
     chunkFilename: '[id][hash].js',
-  },
-  output: {
     hotUpdateChunkFilename: 'hmr/[id].[fullhash].hot-update.js',
     hotUpdateMainFilename: 'hmr/[runtime].[fullhash].hot-update.json',
   },

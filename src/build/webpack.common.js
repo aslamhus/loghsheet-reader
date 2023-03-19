@@ -21,7 +21,7 @@ export default {
           from: './src/backend',
           globOptions: {
             ignore: [
-              '**/backend/vendor',
+              // '**/backend/vendor',
               // '**/admin/.production.htaccess',
               // '**/admin/index.php',
             ],
@@ -94,8 +94,9 @@ export default {
       // '@': path.resolve(__dirname, './src'),
       //   '@images': path.resolve(__dirname, '../../images/'),
       //   '@sounds': path.resolve(__dirname, '../../sounds/'),
-      //   '@fonts': path.resolve(__dirname, '../../fonts/'),
-      //   '@components': path.resolve(__dirname, '../../src/Components'),
+
+      '@api': path.resolve(__dirname, '../App/api'),
+      '@components': path.resolve(__dirname, '../App/Components'),
     },
   },
 };

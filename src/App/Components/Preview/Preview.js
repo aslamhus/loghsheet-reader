@@ -3,7 +3,6 @@ import React, { useRef } from 'react';
 // import Table from 'react-bootstrap/Table';
 // import Form from 'react-bootstrap/Form';
 import DatePicker from 'react-datepicker';
-import { getDate } from '../../utils/utils';
 import './preview.css';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -27,36 +26,47 @@ const Preview = React.forwardRef((props, ref) => {
     }
   };
   if (!tracks) return null;
-  console.log('date', date);
   return (
     <div className="preview-container" ref={ref}>
-      {/* <h1 className="pdf-ignore">Preview</h1> */}
-      <input type="text" name="title" onChange={handleChange} className="pdf-title" value={title} />
-      <DatePicker dateFormat="MMM d, yyyy" selected={new Date(date)} onChange={onDateInputChange} />
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Host
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">Shaukat Husain</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Demis Tsimon</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      <table className="cfuv-tracks">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Track title</th>
-            <th>Artist</th>
-            <th>Album</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tracks.map((row, index) => {
-            return <Row key={`index-${index}-${row['Track Title']}`} data={row} index={index} />;
-          })}
-        </tbody>
-      </table>
+      <form>
+        {/* <h1 className="pdf-ignore">Preview</h1> */}
+        <input
+          type="text"
+          name="title"
+          onChange={handleChange}
+          className="pdf-title"
+          value={title}
+        />
+        <DatePicker
+          dateFormat="MMM d, yyyy"
+          selected={new Date(date)}
+          onChange={onDateInputChange}
+        />
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Host
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="#/action-1">Shaukat Husain</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Demis Tsimon</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <table className="cfuv-tracks">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Track title</th>
+              <th>Artist</th>
+              <th>Album</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tracks.map((row, index) => {
+              return <Row key={`index-${index}-${row['Track Title']}`} data={row} index={index} />;
+            })}
+          </tbody>
+        </table>
+      </form>
     </div>
   );
 });

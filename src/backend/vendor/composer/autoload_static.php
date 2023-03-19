@@ -16,6 +16,10 @@ class ComposerStaticInit4d91bdd8103444e0c8a57a28c2720738
         array (
             'Masterminds\\' => 12,
         ),
+        'L' => 
+        array (
+            'LogsheetReader\\' => 15,
+        ),
         'F' => 
         array (
             'FontLib\\' => 8,
@@ -23,10 +27,6 @@ class ComposerStaticInit4d91bdd8103444e0c8a57a28c2720738
         'D' => 
         array (
             'Dompdf\\' => 7,
-        ),
-        'A' => 
-        array (
-            'Aslamhusain\\LogsheetReader\\' => 27,
         ),
     );
 
@@ -43,6 +43,10 @@ class ComposerStaticInit4d91bdd8103444e0c8a57a28c2720738
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
+        'LogsheetReader\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Classes',
+        ),
         'FontLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
@@ -50,10 +54,6 @@ class ComposerStaticInit4d91bdd8103444e0c8a57a28c2720738
         'Dompdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
-        ),
-        'Aslamhusain\\LogsheetReader\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

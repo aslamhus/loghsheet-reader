@@ -7,17 +7,20 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once './vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/logsheet-reader/backend/config.php';
 // require_once 'dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
+use Aslamhusain\LogsheetReader\API\API;
+
+
+$decoded = API::getPHPInput();
+$html = $decoded->html;
+
+
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-
-$data = file_get_contents('php://input');
-$decoded = json_decode($data);
-$html = $decoded->html;
 
 // $html = file_get_contents('https://aslamhusain.com');
 $dompdf->loadHtml($html);

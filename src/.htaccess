@@ -1,1 +1,9 @@
+Options -Indexes -MultiViews +FollowSymlinks
+
 DirectoryIndex index.html
+
+# Redirect all api requests to backend/api...
+# avoid infinite loop
+RewriteCond %{REQUEST_URI} !backend
+# all requests to logsheet-reader get redirected to dist folder
+RewriteRule api/(.*) backend/api/$1 [NC,L]
