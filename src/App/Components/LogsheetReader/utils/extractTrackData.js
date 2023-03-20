@@ -5,15 +5,14 @@ let PDF_COLUMNS, tracks;
 export const extractTrackData = async (file) => {
   tracks = [];
   PDF_COLUMNS = [
-    { name: 'Artist', minMax: [], values: [] },
-    { name: 'Album Title', minMax: [], values: [] },
-    { name: 'Track Title', minMax: [], values: [] },
+    { name: 'Artist', minMax: [], values: [], dbColumnName: 'artist' },
+    { name: 'Album Title', minMax: [], values: [], dbColumnName: 'album' },
+    { name: 'Track Title', minMax: [], values: [], dbColumnName: 'track' },
     { name: 'CanCon', minMax: [] },
   ];
   const loadingTask = pdfjsLib.getDocument(file);
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
-  console.log('text', text);
   const trackData = parseTextContent(text);
   return trackData;
 };

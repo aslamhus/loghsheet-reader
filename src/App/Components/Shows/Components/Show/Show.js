@@ -1,5 +1,4 @@
 import React from 'react';
-// import { getDate } from '../../../LogsheetReader/utils/utils';
 import './show.css';
 
 export default function Show({ data }) {

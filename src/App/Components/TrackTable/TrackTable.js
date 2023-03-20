@@ -12,6 +12,7 @@ export default function TrackTable({ tracks }) {
             <th>Track title</th>
             <th>Artist</th>
             <th>Album</th>
+            <th>Label</th>
           </tr>
         </thead>
         <tbody>
@@ -25,23 +26,27 @@ export default function TrackTable({ tracks }) {
 }
 
 const TR = ({ data, index }) => {
-  console.log('data', data);
   return (
     <tr>
       <td>{index + 1}</td>
       <td>
         <span contentEditable suppressContentEditableWarning={true}>
-          {data['Track Title']}
+          {data.track || ''}
         </span>
       </td>
       <td>
         <span contentEditable suppressContentEditableWarning={true}>
-          {data.Artist}
+          {data.artist || ''}
         </span>
       </td>
       <td>
         <span contentEditable suppressContentEditableWarning={true}>
-          {data['Album Title']}
+          {data.album || ''}
+        </span>
+      </td>
+      <td>
+        <span contentEditable suppressContentEditableWarning={true}>
+          {data?.label || ''}
         </span>
       </td>
     </tr>

@@ -23,8 +23,17 @@ export default function LogsheetReader({}) {
     const files = await fs.select();
     const blob = URL.createObjectURL(files[0]);
     const { tracks, date } = await extractTrackData(blob);
+
     setDate(date);
-    setTracks(tracks);
+    setTracks(tracks.map(convertPDFDataToDBSchema));
+  };
+
+  const convertPDFDataToDBSchema = (trackObj) => {
+    return {
+      artist: trackObj.Artist,
+      album: trackObj['Album Title'],
+      track: trackObj['Track Title'],
+    };
   };
 
   const handleSaveAsPDF = async (event) => {

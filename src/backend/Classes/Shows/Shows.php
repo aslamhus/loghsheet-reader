@@ -55,6 +55,16 @@ class Shows {
        return $result;
     }
 
+    public function getShowById(int $show_id) : array {
+        $pdo = $this->db->getPDO();
+        $query = "SELECT * FROM shows WHERE id = ?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$show_id]);
+        $result = $stmt->fetch();
+        
+       return $result;
+    }
+
     public function getShowTracks(int $show_id) : array {
         $pdo = $this->db->getPDO();
         $query = "SELECT * FROM tracks WHERE show_id = ?";
@@ -112,10 +122,10 @@ class Shows {
         $pdo = $this->db->getPDO();
         $stmt = $pdo->prepare('insert into tracks(`track`, `artist`,`album`,`label`,`show_id`) VALUES(?,?,?,?,?)');
         return $stmt->execute([
-            $track->{"Track Title"},
-            $track->Artist,
-            $track->{"Album Title"},
-            $track->{"Label"} ?? "",
+            $track->{"track"},
+            $track->artist,
+            $track->{"album"},
+            $track->{"label"} ?? "",
             $show_id
         ]);
     }

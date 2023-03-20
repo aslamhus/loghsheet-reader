@@ -92,7 +92,7 @@ export default {
     // extensions: ['js', 'ts'],
     alias: {
       // '@': path.resolve(__dirname, './src'),
-      //   '@images': path.resolve(__dirname, '../../images/'),
+      '@utils': path.resolve(__dirname, '../App/utils'),
       '@images': path.resolve(__dirname, '../../images/'),
       '@api': path.resolve(__dirname, '../App/api'),
       '@components': path.resolve(__dirname, '../App/Components'),

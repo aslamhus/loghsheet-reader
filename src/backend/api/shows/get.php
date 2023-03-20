@@ -31,7 +31,9 @@ $result = [];
 if(!isset($params['id'])){
     $result = $shows->getAllShows();
 } else {
-    $result = $shows->getShowTracks($params['id']);
+    $show = $shows->getShowById($params['id']);
+    $tracks = $shows->getShowTracks($params['id']);
+    $result = [ 'show' => $show, 'tracks' => $tracks];
 }
 http_response_code(200);
 echo json_encode($result);

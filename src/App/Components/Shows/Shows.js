@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Show from './Components/Show';
 import Table from '../Table';
 import { getShows } from '../../api/shows';
-import { getDate } from '../LogsheetReader/utils/utils';
+import { useNavigate } from 'react-router-dom';
+import { getDate } from '@utils/utils';
 import './shows.css';
 
 const tableHeaderCells = [
@@ -23,7 +23,7 @@ export default function Shows({}) {
 
   return (
     <div className="shows-container">
-      <Table dataSource={shows} enableCheckbox={false}>
+      <Table className="shows-table" dataSource={shows} enableCheckbox={false}>
         <Table.TitleBar title={'Straight No Chaser 101.9 FM'} />
 
         <Table.Head>
@@ -50,14 +50,14 @@ export default function Shows({}) {
 }
 
 const ShowRow = ({ rowId, rowData, selected, ...props }) => {
+  const navigate = useNavigate();
   const handleRowClick = () => {
-    // alert('hey! ' + rowId);
     const { id } = rowData;
-    window.location = `/straight-no-chaser/shows/${id}`;
+    navigate(`/shows/${id}`, { rowData });
   };
 
   return (
-    <Table.Row onClick={handleRowClick} className="something">
+    <Table.Row onClick={handleRowClick}>
       <Table.Row.Cells>
         {tableHeaderCells.map((cell, index) => {
           let value = rowData[cell.name];

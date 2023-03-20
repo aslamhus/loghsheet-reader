@@ -1,0 +1,21 @@
+.th-container {
+  background: var(--table-head-bg);
+}
+.th-container button {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+.th-container button:hover {
+  color: rgb(183, 255, 253) !important;
+}
+.shows-table .table-row:hover {
+  cursor: pointer;
+  background: lightyellow;
+}
+.shows-table .table-row:nth-of-type(even) {
+  background: rgb(245, 245, 245);
+}
+.shows-table .table-row p {
+  color: rgb(88, 88, 88);
+}

@@ -5,7 +5,7 @@ table.cfuv-tracks {
 table.cfuv-tracks th {
   text-align: left;
   font-size: 1rem;
-  background: rgb(0, 0, 83);
+  background: var(--table-head-bg);
   color: rgb(244, 244, 244);
   padding: 0.75rem 0.5rem;
   text-transform: uppercase;
