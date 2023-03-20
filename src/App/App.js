@@ -8,6 +8,7 @@ import './buttons.css';
 import './app.css';
 import Sidebar from './Components/Sidebar';
 import TopNavigation from './Components/TopNavigation/TopNavigation';
+import ShowTrackList from './Components/ShowTrackList';
 // import * as html2pdf from 'html-to-pdf-js';
 // import { jsPDF } from "jspdf";
 
@@ -26,6 +27,7 @@ export default function App() {
                   <Route path="/" element={<LogsheetReader />}></Route>
                   <Route path="/logsheet-reader" element={<LogsheetReader />}></Route>
                   <Route path="/shows" element={<Shows />}></Route>
+                  <Route path="/shows/:showId" element={<ShowTrackList />}></Route>
                 </Routes>
               </div>
             </div>

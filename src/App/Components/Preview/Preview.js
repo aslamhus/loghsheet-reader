@@ -1,8 +1,6 @@
 import React, { useRef } from 'react';
-// import Table from '../Table/Table.js';
-// import Table from 'react-bootstrap/Table';
-// import Form from 'react-bootstrap/Form';
 import DatePicker from 'react-datepicker';
+import TrackTable from '../TrackTable/TrackTable';
 import './preview.css';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -51,48 +49,10 @@ const Preview = React.forwardRef((props, ref) => {
             <Dropdown.Item href="#/action-2">Demis Tsimon</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <table className="cfuv-tracks">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Track title</th>
-              <th>Artist</th>
-              <th>Album</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tracks.map((row, index) => {
-              return <Row key={`index-${index}-${row['Track Title']}`} data={row} index={index} />;
-            })}
-          </tbody>
-        </table>
+        <TrackTable tracks={tracks} />
       </form>
     </div>
   );
 });
-
-const Row = ({ data, index }) => {
-  //   console.log('data', data);
-  return (
-    <tr>
-      <td>{index + 1}</td>
-      <td>
-        <span contentEditable suppressContentEditableWarning={true}>
-          {data['Track Title']}
-        </span>
-      </td>
-      <td>
-        <span contentEditable suppressContentEditableWarning={true}>
-          {data.Artist}
-        </span>
-      </td>
-      <td>
-        <span contentEditable suppressContentEditableWarning={true}>
-          {data['Album Title']}
-        </span>
-      </td>
-    </tr>
-  );
-};
 
 export default Preview;

@@ -1,0 +1,30 @@
+table.cfuv-tracks {
+  margin-top: 1rem;
+  width: 100%;
+}
+table.cfuv-tracks th {
+  text-align: left;
+  font-size: 1rem;
+  background: rgb(0, 0, 83);
+  color: rgb(244, 244, 244);
+  padding: 0.75rem 0.5rem;
+  text-transform: uppercase;
+}
+table.cfuv-tracks tbody tr {
+  border: 1px solid lightgray;
+}
+table.cfuv-tracks tr:nth-of-type(even) {
+  background: rgb(239, 239, 239);
+}
+table.cfuv-tracks tr:nth-of-type(odd) {
+  background: rgb(247, 247, 247) !important;
+}
+
+table.cfuv-tracks td {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.cfuv-tracks td:nth-of-type(1) {
+  color: gray;
+}
