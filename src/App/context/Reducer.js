@@ -1,9 +1,11 @@
 export const initialState = {
   topNavButtons: [],
+  customAlert: null,
 };
 
 export const actions = {
   setTopNavButtons: 'setTopNavButtons',
+  setCustomAlert: 'setCustomAlert',
 };
 
 export const reducer = (state, action) => {
@@ -12,6 +14,12 @@ export const reducer = (state, action) => {
       return {
         ...state,
         topNavButtons: action.payload,
+      };
+
+    case actions.setCustomAlert:
+      return {
+        ...state,
+        customAlert: action.payload,
       };
   }
 };

@@ -1,19 +1,26 @@
 import React from 'react';
 import LogsheetReader from './Components/LogsheetReader';
 import Shows from './Components/Shows/Shows';
+import Sidebar from './Components/Sidebar';
+import TopNavigation from './Components/TopNavigation/TopNavigation';
+import ShowTrackList from './Components/ShowTrackList';
+import CustomConfirm from './Components/Common/CustomConfirm/CustomConfirm';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../bootstrap-theme/styles.css';
 import './root.css';
 import './app.css';
 import './buttons.css';
-import Sidebar from './Components/Sidebar';
-import TopNavigation from './Components/TopNavigation/TopNavigation';
-import ShowTrackList from './Components/ShowTrackList';
+import AlertModal from './Components/Common/AlertModal/AlertModal';
+import { useApp } from './hooks/useApp';
 // import * as html2pdf from 'html-to-pdf-js';
 // import { jsPDF } from "jspdf";
 
 export default function App() {
+  const {
+    state: { customAlert },
+  } = useApp();
+
   return (
     <React.StrictMode>
       <Router basename="/straight-no-chaser">
@@ -33,6 +40,12 @@ export default function App() {
               </div>
             </div>
           </div>
+          <CustomConfirm />
+          <AlertModal
+            variant={customAlert?.variant}
+            onDismiss={customAlert?.onDismiss}
+            content={customAlert?.content}
+          />
         </div>
       </Router>
     </React.StrictMode>

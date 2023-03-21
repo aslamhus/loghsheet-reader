@@ -1,6 +1,5 @@
 export const getDate = (dateString) => {
   if (!dateString) return '';
-  console.log('dateString', dateString);
   const d = new Date(dateString);
 
   return d.toLocaleDateString('en-US', {

@@ -1,0 +1,6 @@
+.alert-modal-danger {
+  background: var(--bs-danger) !important;
+}
+.alert-modal .close-btn i {
+  color: rgba(255, 255, 255, 0.798) !important;
+}

@@ -14,6 +14,10 @@ export default function ShowTrackList({}) {
     setShowData({ ...showData, timestamp: new Date(date) });
   };
 
+  const onTitleInputChange = (title) => {
+    setShowData({ ...showData, title });
+  };
+
   useEffect(() => {
     getShows(showId).then((res) => {
       const { tracks, show } = res;
@@ -45,7 +49,7 @@ export default function ShowTrackList({}) {
           date={showData.timestamp}
           title={showData?.title}
           host={showData?.host}
-          onTitleInputChange={null}
+          onTitleInputChange={onTitleInputChange}
           onDateInputChange={onDateInputChange}
           onSelectHost={null}
         />

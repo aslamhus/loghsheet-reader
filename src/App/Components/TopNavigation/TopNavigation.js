@@ -12,7 +12,6 @@ import { useApp } from '../../hooks/useApp';
 
 export default function TopNavigation({}) {
   const context = useApp();
-  console.log('context', context);
   const {
     state: { topNavButtons },
   } = context;

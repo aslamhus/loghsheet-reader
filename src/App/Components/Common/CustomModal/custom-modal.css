@@ -1,0 +1,290 @@
+/** Variants **/
+.custom-modal {
+  --cm-btn-color: white;
+  --cm-btn-hover-color: yellow;
+  --cm-background-color: rgb(25, 29, 69);
+}
+.custom-modal.custom-modal-dark {
+  --cm-btn-color: white;
+  --cm-btn-hover-color: yellow;
+  --cm-background-color: rgb(25, 29, 69);
+}
+.custom-modal.custom-modal-light {
+  --cm-btn-color: black;
+  --cm-btn-hover-color: lightgrey;
+  --cm-background-color: white;
+}
+
+.custom-modal {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  z-index: 1024;
+  /** Display flex allows us to center
+  while also adding transform values **/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /** 
+  Default custom modal has no overlay, but still needs
+  the parent container to be full width/height in order
+  to position the dialog correctly. To make the modal container
+  effectively display:none, we use pointer-events:none so that
+  the user can interact with anything underneath the modal overlay**/
+  pointer-events: none;
+}
+.custom-modal.cm-overlay {
+  opacity: 0;
+  pointer-events: all;
+  background-color: rgba(0, 0, 0, 0.75);
+  animation: cm-fadein 0.3s ease forwards;
+}
+.custom-modal.custom-modal-light.cm-overlay {
+  background-color: rgba(8, 8, 8, 0.45);
+}
+.custom-modal.cm-hide {
+  display: none;
+}
+
+/** Custom modal dialog is where the modal content goes **/
+.custom-modal-dialog {
+  pointer-events: all !important;
+  opacity: 0;
+  /* -webkit-animation: fade-in 0.3s ease forwards;
+  animation: fade-in 0.3s ease forwards; */
+  --duration: 0.3s;
+  --ease: ease;
+  animation-duration: var(--duration);
+  animation-timing-function: var(--ease);
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: var(--duration);
+  -webkit-animation-timing-function: var(--ease);
+  -webkit-animation-fill-mode: forwards;
+  transition: all 0.3s ease;
+  background: var(--cm-background-color);
+  /** make custom modal scrollable, and always fit within height of viewport **/
+  max-height: 100vh;
+  overflow: scroll;
+}
+
+.custom-modal-centered {
+  position: absolute;
+}
+.custom-modal-fullscreen {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+/**** HEADER *****/
+
+.custom-modal-header {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+/* The children of header (excluding the close button) */
+.custom-modal-header > .header-container {
+  flex-grow: 1;
+}
+/* The header buttons */
+.custom-modal .header-btns {
+  /* position: absolute; */
+  display: flex;
+  top: 0;
+}
+.custom-modal-btn {
+  margin: 0.5rem 0.5rem;
+  background: transparent;
+  border: none;
+}
+.custom-modal-btn:hover {
+  cursor: pointer;
+}
+.custom-modal-btn i {
+  color: var(--cm-btn-color);
+  font-size: 1.5rem;
+}
+.custom-modal-btn:hover i {
+  color: var(--cm-btn-hover-color);
+}
+/** Padding **/
+
+.custom-modal-body,
+.custom-modal-header .header-container {
+  padding: 2rem;
+}
+
+/** Minimize **/
+.custom-modal.cm-minimize {
+  /* opacity: 0 !important; */
+  background-color: transparent;
+  left: 0px;
+  bottom: -8px;
+  top: unset;
+  height: 50px;
+  min-height: unset;
+  overflow: hidden;
+  width: 250px;
+  transform: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.custom-modal.cm-minimize .custom-modal-dialog {
+  width: 100% !important;
+}
+.custom-modal.cm-minimize .custom-modal-dialog {
+  transform: none !important;
+  position: relative;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+.custom-modal.cm-minimize .custom-modal-header {
+  align-items: center;
+}
+.custom-modal.cm-minimize .custom-modal-header .header-container {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+}
+.custom-modal.cm-minimize .custom-modal-header .header-container h3 {
+  /** The client may have added their own html elements here
+  * it is their responsibility to manage the smaller styles
+  * required for the minimized state. But we set a small 
+  * font-size here anyway, in case the client is simply using
+  * text
+  */
+  font-size: 0.95rem !important;
+  margin: 0;
+}
+.custom-modal.cm-minimize .custom-modal-header .header-btns button {
+  margin: 0rem;
+}
+.custom-modal.cm-minimize .custom-modal-header .header-btns i {
+  font-size: 0.75rem !important;
+}
+.custom-modal.cm-minimize .custom-modal-body {
+  display: none;
+}
+/** positions **/
+.cm-position-left {
+  justify-content: flex-start;
+}
+.cm-position-right {
+  justify-content: flex-end;
+}
+.cm-position-center {
+  justify-content: center;
+}
+.cm-position-bottom-right {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.cm-position-bottom-center {
+  justify-content: center;
+  align-items: flex-end;
+}
+.cm-position-bottom-left {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.cm-position-top-left {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.cm-position-top-center {
+  justify-content: center;
+  align-items: flex-start;
+}
+.cm-position-top-right {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+/** Entrances **/
+.custom-modal-fade {
+  -webkit-animation-name: cm-fadein;
+  animation-name: cm-fadein;
+}
+.custom-modal-slide-up {
+  -webkit-animation-name: cm-slide-up;
+  animation-name: cm-slide-up;
+}
+.custom-modal-slide-down {
+  -webkit-animation-name: cm-slide-down;
+  animation-name: cm-slide-down;
+}
+.custom-modal-slide-left {
+  -webkit-animation-name: cm-slide-left;
+  animation-name: cm-slide-left;
+}
+.custom-modal-slide-right {
+  -webkit-animation-name: cm-slide-right;
+  animation-name: cm-slide-right;
+}
+/** Exits **/
+.cm-animate-fade-out {
+  -webkit-animation-name: cm-fadein;
+  -webkit-animation-direction: reverse;
+  -webkit-animation-duration: var(--fade-out-duration);
+  -webkit-animation-fill-mode: forwards;
+  animation-duration: var(--fade-out-duration);
+  animation-name: cm-fadein;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
+/**** ANIMATIONS *****/
+@keyframes cm-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(-500px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes cm-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+@keyframes cm-slide-left {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes cm-slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes cm-fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

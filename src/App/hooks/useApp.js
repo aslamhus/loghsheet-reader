@@ -4,7 +4,7 @@ import { actions } from '../context/Reducer';
 
 export const useApp = () => {
   const [state, dispatch] = useContext(AppContext);
-  const { topNavButtons } = state;
+  const { topNavButtons, customAlert } = state;
 
   /**
    * Set the top navigation buttons
@@ -15,8 +15,12 @@ export const useApp = () => {
   const setTopNavButtons = (buttons) =>
     dispatch({ type: actions.setTopNavButtons, payload: buttons });
 
+  const setAlert = (alert = { variant, content, onDismiss }) =>
+    dispatch({ type: actions.setCustomAlert, payload: alert });
+
   return {
     setTopNavButtons,
-    state: { topNavButtons },
+    setAlert,
+    state: { topNavButtons, customAlert },
   };
 };

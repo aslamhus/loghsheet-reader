@@ -1,4 +1,5 @@
 export const saveShow = async ({ title, host, date, tracks }) => {
+  console.log(title, host, date, tracks);
   return fetch('/straight-no-chaser/api/shows/update.php', {
     method: 'POST',
     headers: {
