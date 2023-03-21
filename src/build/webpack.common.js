@@ -3,6 +3,7 @@ import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default {
   output: {
@@ -35,6 +36,10 @@ export default {
         // { from: './resources/js', to: 'js' },
       ],
     }),
+    // new MiniCssExtractPlugin({
+    //   filename: '[name]-my-test.css',
+    //   chunkFilename: 'chunk-[id]-my-test.css',
+    // }),
   ],
   module: {
     rules: [
@@ -60,23 +65,43 @@ export default {
       {
         test: /\.(scss|css)$/,
         use: [
+          // we use single style tag in order to speed up innerHTML for PDF generation
           {
             loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'postcss-loader',
             options: {
-              postcssOptions: {
-                plugins: () => [require('autoprefixer')],
+              // attributes: { id: 'id' },
+              // insert: function insertAtTop(element) {
+              //   var parent = document.querySelector('head');
+              //   element.id = 'my-test-id';
+              //   parent.append(element);
+              // },
+              styleTagTransform: function (css, style) {
+                // Do something ...
+
+                const cssTitle = css.substring(0, 16);
+                if (cssTitle == '/**PDF-STYLES**/') {
+                  style.id = 'pdf-styles';
+                }
+                style.innerHTML = css;
+                document.head.appendChild(style);
               },
             },
           },
+          // MiniCssExtractPlugin.loader,
           {
-            loader: 'sass-loader',
+            loader: 'css-loader',
           },
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     postcssOptions: {
+          //       plugins: () => [require('autoprefixer')],
+          //     },
+          //   },
+          // },
+          // {
+          //   loader: 'sass-loader',
+          // },
         ],
       },
       {

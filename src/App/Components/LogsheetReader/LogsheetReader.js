@@ -7,13 +7,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { generatePDF } from '@api/pdf';
 import { saveShow } from '@api/shows';
 import { downloadPDF } from './utils/utils';
+import { getDate } from '@utils/utils';
 import './logsheet-reader.css';
 import { useApp } from '../../hooks/useApp';
 
 export default function LogsheetReader({}) {
   const [tracks, setTracks] = useState([]);
   const [date, setDate] = useState('');
-  const [title, setTitle] = useState('Straight No Chaser');
+  const [title, setTitle] = useState('');
   const [host, setHost] = useState('');
   const previewRef = useRef();
 
@@ -50,12 +51,35 @@ export default function LogsheetReader({}) {
     console.log('didSave', didSave);
   };
 
+  const toggleShowPdfHtml = (show) => {
+    const pdfIgnore = previewRef.current.querySelectorAll('.pdf-ignore');
+    const pdfShow = previewRef.current.querySelectorAll('.pdf-show');
+    pdfShow.forEach((el) => {
+      el.style.display = show ? 'block' : 'none';
+    });
+    pdfIgnore.forEach((el) => {
+      el.style.display = show ? 'none' : '';
+    });
+  };
+
+  const getHTML = (el) => {
+    toggleShowPdfHtml(true);
+    const style = document.querySelector('#pdf-styles');
+    const html = `<html><head><style>${style.innerHTML}</style></head><body>${el.innerHTML}</body></html>`;
+    console.log('html', html);
+    toggleShowPdfHtml(false);
+    return html;
+  };
+
   const handleSaveAsPDF = async (event) => {
-    const html = previewRef.current.innerHTML;
-    console.log(html);
+    const html = getHTML(previewRef.current);
     const pdfBlob = await generatePDF(html).catch(handleError);
     // notice of saving show and generating pdf.
-    const filename = `${title}-${date}.pdf`.replace(/\s/g, '-');
+    const filenameDate = getDate(date);
+    const filename = `${title ? `${title}` : 'Straight-no-chaser'}-${filenameDate}.pdf`.replace(
+      /\s/g,
+      '-'
+    );
     downloadPDF(pdfBlob, filename);
   };
 

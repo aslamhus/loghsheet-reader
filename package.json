@@ -24,6 +24,7 @@
     "dayjs": "^1.11.7",
     "html-to-pdf-js": "^0.9.3",
     "jspdf": "^1.4.1",
+    "mini-css-extract-plugin": "^2.7.5",
     "moment": "^2.29.4",
     "pdfjs-dist": "~2.6.347",
     "pdfreader": "^3.0.0",

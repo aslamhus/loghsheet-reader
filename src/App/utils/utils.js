@@ -1,6 +1,7 @@
 export const getDate = (dateString) => {
   if (!dateString) return '';
-  const d = new Date(dateString.replace(/-/g, '/'));
+  console.log('dateString', dateString);
+  const d = new Date(dateString);
 
   return d.toLocaleDateString('en-US', {
     weekday: 'long',
