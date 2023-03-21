@@ -7,12 +7,22 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/straight-no-chaser/backend/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/straight-no-chaser/dist/backend/config.php';
 // require_once 'dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
+use LogsheetReader\API;
 
-use Aslamhusain\LogsheetReader\API\API;
+
+if(
+    !API::ValidateOrigin(['http://localhost:3003','https://aslamhusain.com']) ||
+    !API::ValidateRequestMethod(['POST'])
+    ){
+    // ultimately we will need another API authorization method, like login credential
+    http_response_code(403);
+    exit;
+}
+try {
 
 
 $decoded = API::getPHPInput();
@@ -34,4 +44,7 @@ $dompdf->render();
 
 // Output the generated PDF to Browser
 $dompdf->stream();
+} catch(\Exception $e){
+    echo json_encode(['error' => $e->getMessage()]);
+}
 ?>
