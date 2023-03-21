@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Table from '../Table';
-import { getShows } from '../../api/shows';
+import { deleteShows, getShows } from '../../api/shows';
 import { useNavigate } from 'react-router-dom';
 import { getDate } from '@utils/utils';
+import { useApp } from '../../hooks/useApp';
 import './shows.css';
 
 const tableHeaderCells = [
@@ -15,6 +16,44 @@ const tableHeaderCells = [
 
 export default function Shows({}) {
   const [shows, setShows] = useState([]);
+  const { setAlert } = useApp();
+
+  const handleDeleteRow = async (rows) => {
+    // delete tracks by id
+    const ids = rows.map((row) => row.id);
+    const deleteRequest = await deleteShows(ids).catch((error) => {
+      console.error('error deleting show', error);
+      setAlert({
+        variant: 'danger',
+        content: `There was an error deleting the show: ${error.message}`,
+        onDismiss: setAlert(null),
+      });
+    });
+    if (deleteRequest.delete == true) {
+      setAlert({
+        variant: 'success',
+        content: `Shows deleted`,
+        onDismiss: setAlert(null),
+      });
+      removeShows(ids);
+    }
+  };
+
+  /**
+   * Remove shows from UI
+   *
+   * @param {Array<Number>} ids
+   */
+  const removeShows = (ids) => {
+    const newShows = shows.filter((show) => {
+      if (!ids.includes(show.id)) {
+        return show;
+      }
+    });
+    console.log('newShows', newShows);
+    setShows(newShows);
+  };
+
   useEffect(() => {
     getShows().then((result) => {
       setShows(result);
@@ -23,7 +62,12 @@ export default function Shows({}) {
 
   return (
     <div className="shows-container">
-      <Table className="shows-table" dataSource={shows} enableCheckbox={false}>
+      <Table
+        className="shows-table"
+        dataSource={shows}
+        enableCheckbox={true}
+        onDelete={handleDeleteRow}
+      >
         <Table.TitleBar title={'Straight No Chaser 101.9 FM'} />
 
         <Table.Head>
@@ -49,7 +93,7 @@ export default function Shows({}) {
   );
 }
 
-const ShowRow = ({ rowId, rowData, selected, ...props }) => {
+const ShowRow = ({ rowData, ...props }) => {
   const navigate = useNavigate();
   const handleRowClick = () => {
     const { id } = rowData;
@@ -57,7 +101,7 @@ const ShowRow = ({ rowId, rowData, selected, ...props }) => {
   };
 
   return (
-    <Table.Row onClick={handleRowClick}>
+    <Table.Row onClick={handleRowClick} rowData={rowData} {...props}>
       <Table.Row.Cells>
         {tableHeaderCells.map((cell, index) => {
           let value = rowData[cell.name];

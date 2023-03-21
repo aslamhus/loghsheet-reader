@@ -76,6 +76,21 @@ class Shows {
        return $result;
     }
 
+    public function deleteShows(array $ids) : bool {
+        $pdo = $this->db->getPDO();
+        foreach($ids as $id){
+            $query = "DELETE FROM shows WHERE id = ?";
+            $stmt = $pdo->prepare($query);
+           try {
+            $stmt->execute([$id]);
+           } catch(\Exception $e){
+            throw new \Exception('There was an error deleting the show. '.$e->getMessage());
+           }
+        }
+    
+       return true;
+    }
+
 
 
     private function stringToDate(string $jsDate) : DateTime {

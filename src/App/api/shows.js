@@ -29,3 +29,26 @@ export const getShows = async (id) => {
     }
   });
 };
+
+/**
+ *
+ * @param {Array<Number>} ids
+ */
+export const deleteShows = async (ids) => {
+  return fetch(`/straight-no-chaser/api/shows/delete.php`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      type: 'delete',
+      ids,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error('Deleting shows failed. ' + res.statusText);
+    }
+  });
+};
