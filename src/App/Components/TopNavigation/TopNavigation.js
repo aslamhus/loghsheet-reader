@@ -35,7 +35,6 @@ export default function TopNavigation({}) {
           <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
             {topNavButtons?.length > 0 &&
               topNavButtons.map((Component, index) => {
-                console.log('component', Component);
                 return React.cloneElement(Component, { key: `nav-button-${index}` });
               })}
             {/* <li className="nav-item active">

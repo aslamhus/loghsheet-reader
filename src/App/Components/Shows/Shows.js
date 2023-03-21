@@ -61,8 +61,9 @@ const ShowRow = ({ rowId, rowData, selected, ...props }) => {
       <Table.Row.Cells>
         {tableHeaderCells.map((cell, index) => {
           let value = rowData[cell.name];
+
           if (cell.name == 'air_date') {
-            value = getDate(value);
+            value = getDate(new Date(rowData.timestamp * 1000));
           }
           return (
             <Table.Cell key={`${cell.name}-${index}`} size={cell?.size}>
