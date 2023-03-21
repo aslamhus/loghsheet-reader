@@ -8,13 +8,19 @@ import {
   ListCheck,
 } from 'react-bootstrap-icons';
 import './top-navigation.css';
+import { useApp } from '../../hooks/useApp';
 
 export default function TopNavigation({}) {
+  const context = useApp();
+  console.log('context', context);
+  const {
+    state: { topNavButtons },
+  } = context;
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div className="container-fluid">
         <ToggleSidebarButton />
-        {/* <button
+        <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -24,10 +30,15 @@ export default function TopNavigation({}) {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button> */}
-        {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
-        {/* <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
+            {topNavButtons?.length > 0 &&
+              topNavButtons.map((Component, index) => {
+                console.log('component', Component);
+                return React.cloneElement(Component, { key: `nav-button-${index}` });
+              })}
+            {/* <li className="nav-item active">
               <a className="nav-link" href="#!">
                 Home
               </a>
@@ -36,8 +47,8 @@ export default function TopNavigation({}) {
               <a className="nav-link" href="#!">
                 Link
               </a>
-            </li>
-            <li className="nav-item dropdown">
+            </li> */}
+            {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 id="navbarDropdown"
@@ -61,9 +72,9 @@ export default function TopNavigation({}) {
                   Something else here
                 </a>
               </div>
-            </li>
-          </ul> */}
-        {/* </div> */}
+            </li> */}
+          </ul>
+        </div>
       </div>
     </nav>
   );

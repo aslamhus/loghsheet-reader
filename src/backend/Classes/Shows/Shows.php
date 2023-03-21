@@ -16,7 +16,7 @@ class Shows {
 
     public function update(string $host, string $title, string $air_date, array $tracks){
         // convert string date to date
-        $converted_air_date = $this->stringToDate("$air_date 18:00:00");
+        $converted_air_date = $this->stringToDate($air_date);
         
         // update or insert show details
         $show = $this->getShow($host, $title, $converted_air_date);
@@ -49,15 +49,16 @@ class Shows {
 
     public function getAllShows() : array {
         $pdo = $this->db->getPDO();
-        $stmt = $pdo->prepare("SELECT * FROM shows ORDER BY air_date DESC");
+        $stmt = $pdo->prepare("SELECT *, UNIX_TIMESTAMP(air_date) AS timestamp FROM shows ORDER BY air_date DESC");
         $stmt->execute();
         $result = $stmt->fetchAll();
        return $result;
     }
 
     public function getShowById(int $show_id) : array {
+        // 2021-01-01T12:00:00-04:00
         $pdo = $this->db->getPDO();
-        $query = "SELECT * FROM shows WHERE id = ?";
+        $query = "SELECT *, UNIX_TIMESTAMP(air_date) AS timestamp FROM shows WHERE id = ?";
         $stmt = $pdo->prepare($query);
         $stmt->execute([$show_id]);
         $result = $stmt->fetch();
@@ -77,8 +78,13 @@ class Shows {
 
 
 
-    private function stringToDate(string $date) : DateTime {
-        $date = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+    private function stringToDate(string $jsDate) : DateTime {
+        $timestamp = strtotime($jsDate);
+        $date = new DateTime();
+        $date->setTimestamp($timestamp);
+        if($date == false){
+            throw new \Exception('Failed to convert javascript date to php date: '.$jsDate);
+        }
         return $date;
     }
 

@@ -1,0 +1,48 @@
+/** host dropdown **/
+.show-container {
+  --input-padding: 0.25rem;
+  --input-border: 2px solid black;
+}
+.show-container label {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.show-container input {
+  border: none !important;
+  border-bottom: var(--input-border) !important;
+  padding: var(--input-padding);
+  width: 100% !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  color: rgb(104, 104, 104);
+}
+input:focus {
+  border-color: darkblue !important;
+  color: black;
+  outline: darkblue;
+}
+.show-container label[for='air-date-picker'],
+.show-container label[for='title'] {
+  color: gray;
+  margin: 0;
+}
+.show-container label[for='host-dropdown'],
+.show-container .dropdown button {
+  border: none;
+  border-bottom: var(--input-border);
+  padding: var(--input-padding);
+  font-size: 1rem;
+  text-transform: none;
+}
+.show-container .dropdown {
+  display: inline;
+}
+.show-container .dropdown button {
+  background: transparent;
+  border-radius: 0;
+  color: black;
+  margin: 0.5rem 0;
+  text-align: left;
+}

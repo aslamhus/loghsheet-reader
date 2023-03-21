@@ -2,7 +2,6 @@ import React from 'react';
 import './track-table.css';
 
 export default function TrackTable({ tracks }) {
-  console.log('tracks', tracks);
   return (
     <>
       <table className="cfuv-tracks">

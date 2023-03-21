@@ -1,30 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import Show from '../Show';
 import { useParams } from 'react-router-dom';
-import { getDate } from '@utils/utils';
 import { getShows } from '../../api/shows';
-import TrackTable from '../TrackTable/TrackTable';
 import './show-track-list.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function ShowTrackList({}) {
   const [showData, setShowData] = useState({});
   const [tracks, setTracks] = useState([]);
   const { showId } = useParams();
 
+  const onDateInputChange = (date) => {
+    setShowData({ ...showData, timestamp: new Date(date) });
+  };
+
   useEffect(() => {
     getShows(showId).then((res) => {
       const { tracks, show } = res;
-      console.log('showData', show);
-      setShowData(show);
+      setShowData({
+        ...show,
+        timestamp: new Date(show.timestamp * 1000),
+      });
+      /**
+       * Note about date conversion.
+       * Easiest way to translate mysql date format
+       * a valid javascript Date object
+       * is to get unix_timestamp from mysql, then
+       * multiply by 1000. Mysql Unix timestamp
+       * gives epoch time in seconds, javascript's epoch time
+       * is in milliseconds, hence the multiplication.
+       *
+       */
       setTracks(tracks);
     });
   }, [showId]);
 
   return (
     <div className="show-track-list-container">
-      {showData?.title && <h2>{showData.title}</h2>}
+      {!showData ? (
+        <Spinner variant="primary" animation="border" />
+      ) : (
+        <Show
+          tracks={tracks}
+          date={showData.timestamp}
+          title={showData?.title}
+          host={showData?.host}
+          onTitleInputChange={null}
+          onDateInputChange={onDateInputChange}
+          onSelectHost={null}
+        />
+      )}
+      {/* {showData?.title && <h2>{showData.title}</h2>}
       <h3>{getDate(showData?.air_date)}</h3>
       <strong>{showData?.host ? showData.host : '-'}</strong>
-      <TrackTable tracks={tracks} />
+      <TrackTable tracks={tracks} /> */}
     </div>
   );
 }

@@ -1,8 +1,7 @@
-export const generatePDF = async () => {
+export const generatePDF = async (html) => {
   // const html = previewRef.current.innerHTML;
   // setShowControls(false);
   togglePDFIgnoreContent(false);
-  const html = document.documentElement.innerHTML;
   togglePDFIgnoreContent(true);
 
   // setShowControls(true);

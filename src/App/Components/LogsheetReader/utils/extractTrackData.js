@@ -14,6 +14,7 @@ export const extractTrackData = async (file) => {
   const doc = await loadingTask.promise.then((doc) => doc);
   const text = await getAllTextContent(doc);
   const trackData = parseTextContent(text);
+
   return trackData;
 };
 
