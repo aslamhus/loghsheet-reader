@@ -23,7 +23,7 @@ const Preview = React.forwardRef((props, ref) => {
   const handleCreateShow = async (body) => {
     const didSave = await createShow(body);
     console.log('didSave', didSave);
-    if (didSave.update == true) {
+    if (didSave.create == true) {
       setAlert({
         variant: 'info',
         content: 'Your show has been saved.',
@@ -53,7 +53,7 @@ const Preview = React.forwardRef((props, ref) => {
 
   return (
     <div className="preview-container" ref={ref}>
-      <Show {...props} onSave={handleCreateShow} />
+      <Show {...props} onSave={handleCreateShow} initialHasMadeChanges={true} />
     </div>
   );
 });

@@ -13,13 +13,19 @@ export default function LogsheetReader({}) {
   const [host, setHost] = useState('');
 
   const selectFiles = async (event) => {
+    console.l;
     // setTracks([]);
     const fs = new FileSelect();
+    fs.removeFiles();
     const files = await fs.select();
     const blob = URL.createObjectURL(files[0]);
     const { tracks, date } = await extractTrackData(blob);
-    const dateFormatted = new Date(date);
-    // set to 6pm
+    const dateFormatted = new Date();
+    const [, year, month, day] = date.match(/([0-9]{4})-([0-9]{2})-([0-9]{2})/);
+    dateFormatted.setFullYear(parseInt(year));
+    /** DateObject set month is zero based  */
+    dateFormatted.setMonth(parseInt(month) - 1);
+    dateFormatted.setDate(parseInt(day));
     dateFormatted.setHours(18);
     setDate(dateFormatted);
     setTracks(tracks.map(convertPDFDataToDBSchema));

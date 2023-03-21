@@ -19,8 +19,11 @@ export default function Show({
   onDateInputChange,
   onSelectHost,
   onSave,
+  initialHasMadeChanges,
 }) {
-  const [hasMadeChanges, setHasMadeChanges] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const [hasMadeChanges, setHasMadeChanges] = useState(initialHasMadeChanges);
+
   const showRef = useRef();
   const trackTableRef = useRef();
   const { confirm } = useConfirm();
@@ -85,6 +88,7 @@ export default function Show({
   };
 
   useEffect(() => {
+    console.log('hasMadeChanges', hasMadeChanges);
     if (!tracks || tracks?.length == 0) return;
     setTopNavButtons([
       <LogsheetTopNav
@@ -99,10 +103,14 @@ export default function Show({
   }, [tracks, hasMadeChanges]);
 
   useEffect(() => {
-    if (!hasMadeChanges) {
+    if (!hasMadeChanges && mounted) {
       setHasMadeChanges(true);
     }
   }, [title, host, date]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>

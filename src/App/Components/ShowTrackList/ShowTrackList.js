@@ -70,6 +70,7 @@ export default function ShowTrackList({}) {
           onDateInputChange={onDateInputChange}
           onSelectHost={null}
           onSave={handleUpdateShow}
+          initialHasMadeChanges={false}
         />
       )}
       {/* {showData?.title && <h2>{showData.title}</h2>}

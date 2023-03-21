@@ -7,7 +7,8 @@ use LogsheetReader\Database\DB;
 use LogsheetReader\Shows\Shows;
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/straight-no-chaser/backend/config.php';
+$config_path = $_SERVER['SERVER_NAME'] == 'local.aslamhusain' ? '/straight-no-chaser/dist/backend/config.php' : '/straight-no-chaser/backend/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . $config_path;
 
 if(
     !API::ValidateOrigin(['http://localhost:3003','https://aslamhusain.com']) ||

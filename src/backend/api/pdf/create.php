@@ -4,7 +4,8 @@
 
 
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/straight-no-chaser/backend/config.php';
+$config_path = $_SERVER['SERVER_NAME'] == 'local.aslamhusain' ? '/straight-no-chaser/dist/backend/config.php' : '/straight-no-chaser/backend/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . $config_path;
 // require_once 'dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
