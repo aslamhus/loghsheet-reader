@@ -8,7 +8,9 @@ export default function HostDropdown({ host, onSelectHost, name }) {
   return (
     <>
       <Form.Select name="host-dropdown" aria-label="Default select example">
-        <option>select</option>
+        <option disabled defaultValue={host}>
+          select
+        </option>
         {hosts.map((hostName) => {
           return (
             <option key={hostName} value={hostName}>

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Show from '../Show';
+import Spinner from 'react-bootstrap/Spinner';
 import { useParams } from 'react-router-dom';
 import { getShows } from '../../api/shows';
+import { updateShow } from '../../api/shows';
+import { useApp } from '../../hooks/useApp';
 import './show-track-list.css';
-import Spinner from 'react-bootstrap/Spinner';
 
 export default function ShowTrackList({}) {
   const [showData, setShowData] = useState({});
   const [tracks, setTracks] = useState([]);
   const { showId } = useParams();
+  const { setAlert } = useApp();
 
   const onDateInputChange = (date) => {
     setShowData({ ...showData, timestamp: new Date(date) });
@@ -16,6 +19,20 @@ export default function ShowTrackList({}) {
 
   const onTitleInputChange = (title) => {
     setShowData({ ...showData, title });
+  };
+
+  const handleUpdateShow = async (body) => {
+    const didUpdate = await updateShow({ showId: showData.id, ...body });
+    if (didUpdate.update == true) {
+      setAlert({ variant: 'success', content: 'show updated', onDismiss: () => setAlert(null) });
+    } else {
+      setAlert({
+        variant: 'danger',
+        content: 'Error updating show' + `: ${didUpdate?.error}`,
+        onDismiss: () => setAlert(null),
+      });
+    }
+    console.log('didUpdate', didUpdate);
   };
 
   useEffect(() => {
@@ -52,6 +69,7 @@ export default function ShowTrackList({}) {
           onTitleInputChange={onTitleInputChange}
           onDateInputChange={onDateInputChange}
           onSelectHost={null}
+          onSave={handleUpdateShow}
         />
       )}
       {/* {showData?.title && <h2>{showData.title}</h2>}

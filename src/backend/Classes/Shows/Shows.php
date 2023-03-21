@@ -14,23 +14,52 @@ class Shows {
         $this->db = $db;
     }
 
-    public function update(string $host, string $title, string $air_date, array $tracks){
+    public function create(string $host, string $title, string $air_date, array $tracks, $replace) : bool {
+        $show = null;
         // convert string date to date
         $converted_air_date = $this->stringToDate($air_date);
-        
-        // update or insert show details
-        $show = $this->getShow($host, $title, $converted_air_date);
-        if(empty($show)){
+        // check for conflicting show
+        $conflictingShow = $this->getShowByWeek($converted_air_date);
+        if($replace != true && $conflictingShow){
+            throw new \Exception('conflict');
+        }
+        if(empty($conflictingShow)){
             // insert
             $this->insertShow($host, $title, $converted_air_date);
             $show = $this->getShow($host, $title, $converted_air_date);
         } else {
             // update
-            $this->updateShow($show['id'], $host, $title, $converted_air_date);
+            $this->updateShow($conflictingShow['id'], $host, $title, $converted_air_date);
+            $show = $conflictingShow;
         }
         // update or insert tracks
-        $show_id = $show['id'];
-        return $this->updateTracks($show_id, $tracks);
+        return $this->updateTracks($show['id'], $tracks);
+    }
+
+    public function update(int $showId, string $host, string $title, string $air_date, array $tracks) : bool{
+        // convert string date to date
+        $converted_air_date = $this->stringToDate($air_date);
+        // check for conflicting show
+        
+        // update or insert show details
+        $show = $this->getShowById($showId);
+        if(empty($show)){
+            // insert
+            throw new \Exception('Failed to update show. Could not find show with id '.$showId);
+        } else {
+            // update
+            try {
+            $didUpdateShow  = $this->updateShow($show['id'], $host, $title, $converted_air_date);
+            $didUpdateTracks =$this->updateTracks($show['id'], $tracks);
+            if(!$didUpdateShow || !$didUpdateTracks){
+                throw new \Exception('Failed to update show - updating either show or tracks failed');
+            }
+            } catch(\Exception $e){
+                throw new \Exception('Failed to update show. '.$e->getMessage());
+            }
+        }
+        // update or insert tracks
+        return true;
     }
 
     private function getShow(string $host, string $title, DateTime $air_date) : array {
@@ -45,6 +74,20 @@ class Shows {
         return [];
      }
        return $result;
+    }
+
+    /**
+     * Get show by week
+     *
+     * @param DateTime $air_date
+     * @return Array|Bool
+     */
+    private function getShowByWeek(DateTime $air_date){
+        $pdo = $this->db->getPDO();
+        $stmt = $pdo->prepare("SELECT * FROM shows WHERE WEEK(DATE(air_date)) = WEEK(?)");
+        $stmt->execute([$this->mysqlDate($air_date)]); 
+        $result = $stmt->fetch();
+        return $result;
     }
 
     public function getAllShows() : array {
@@ -114,7 +157,7 @@ class Shows {
         return $stmt->execute([ $host,  $title, $this->mysqlDate($air_date)]);
     }
 
-    private function updateShow(int $id, string $host, string $title, DateTime $air_date) : bool{
+    public function updateShow(int $id, string $host, string $title, DateTime $air_date) : bool{
         $pdo = $this->db->getPDO();
         $stmt = $pdo->prepare('update shows set `host` = ?, `title` = ?, `air_date` = ?, `date_updated` = NOW() WHERE `id` = ?');
         $stmt->execute([ $host,  $title, $this->mysqlDate($air_date), $id]);

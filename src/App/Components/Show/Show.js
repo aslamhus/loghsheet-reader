@@ -4,7 +4,6 @@ import TrackTable from '../TrackTable/TrackTable';
 import HostDropdown from './HostDropdown';
 import { getDate } from '@utils/utils';
 import { generatePDF } from '@api/pdf';
-import { saveShow } from '@api/shows';
 import { downloadPDF, getTracksEditableContent, getHTML } from './utils';
 import { useApp } from '../../hooks/useApp';
 import useConfirm from '../Common/CustomConfirm/useConfirm';
@@ -15,10 +14,11 @@ export default function Show({
   tracks,
   date,
   title,
+  host,
   onTitleInputChange,
   onDateInputChange,
   onSelectHost,
-  host,
+  onSave,
 }) {
   const [hasMadeChanges, setHasMadeChanges] = useState(true);
   const showRef = useRef();
@@ -29,42 +29,29 @@ export default function Show({
   const handleError = (error) => {
     // show error alert
     console.error(error);
+    setAlert({ variant: 'danger', content: error.message, onDismiss: () => setAlert(null) });
   };
 
   const handleSaveShow = async () => {
     const formData = new FormData(showRef.current);
-    const didSave = await saveShow({
+    const body = {
       title: formData.get('title'),
       host: formData.get('host-dropdown'),
       date: formData.get('air-date-picker'),
       tracks: getTracksEditableContent(trackTableRef),
-    }).catch(handleError);
-    console.log('didSave', didSave);
-    if (didSave.update == true) {
-      setHasMadeChanges(false);
-      setAlert({
-        variant: 'info',
-        content: 'Your show has been saved.',
-        onDismiss: () => {
-          setAlert(null);
-        },
-      });
-    } else {
-      setAlert({
-        variant: 'danger',
-        content: 'There was an error saving your show',
-        onDismiss: () => setAlert(null),
-      });
+    };
+    if (onSave instanceof Function) {
+      Promise.resolve(onSave(body))
+        .catch(handleError)
+        .then((result) => {
+          setHasMadeChanges(false);
+        });
     }
   };
 
   const handleSaveAsPDF = async (event) => {
     const html = getHTML(showRef.current);
     const pdfBlob = await generatePDF(html).catch(handleError);
-    // show loader
-    // notice of saving pdf
-    // ask if they want to save to archive.
-
     const filenameDate = getDate(date);
     const filename = `${title ? `${title}` : 'Straight-no-chaser'}-${filenameDate}.pdf`.replace(
       /\s/g,

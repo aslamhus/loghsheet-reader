@@ -27,6 +27,7 @@ $decoded = API::getPHPInput();
 if(!empty($decoded->show) && !empty($decoded->tracks)){
     $show = $decoded->show;
     $tracks = $decoded->tracks;
+    $replace = $decoded->replace ?? null;
 } else {
     http_response_code(400);
     exit;
@@ -34,12 +35,10 @@ if(!empty($decoded->show) && !empty($decoded->tracks)){
 $db = new DB();
 $shows = new Shows($db);
 try {
-    $didUpdate = $shows->update($show->showId, $show->host, $show->title, $show->air_date, $tracks);
-    if($didUpdate){
+    $didCreate = $shows->create($show->host, $show->title, $show->air_date, $tracks, $replace);
+    if($didCreate){
         http_response_code(200);
-        echo json_encode(['update' => true]);
-    } else {
-        throw new \Exception('Failed to update show: '.json_encode($didUpdate));
+        echo json_encode(['create' => true]);
     }
 } catch(\Exception $e) {
     http_response_code(200);
