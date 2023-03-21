@@ -115,7 +115,7 @@ export default function Show({
             onChange={handleChange}
             className="pdf-title"
             value={title || ''}
-            placeholder="'Black History Month'"
+            placeholder="Optional title"
           />
           <label htmlFor="air-date-picker">Air date:</label>
 

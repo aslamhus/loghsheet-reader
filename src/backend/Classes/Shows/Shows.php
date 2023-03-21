@@ -182,7 +182,6 @@ class Shows {
     }
 
     private function addTrackToShow(int $show_id,object $track) : bool{
-        // var_dump($track);
         $pdo = $this->db->getPDO();
         $stmt = $pdo->prepare('insert into tracks(`track`, `artist`,`album`,`label`,`show_id`) VALUES(?,?,?,?,?)');
         return $stmt->execute([

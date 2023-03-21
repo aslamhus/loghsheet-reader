@@ -6,12 +6,13 @@ use \PDO;
 class DB {
 
     public $pdo;
-    public function __construct(Array $connect = [
-        'host' => 'localhost',
-    'db'   => 'straight_no_chaser',
-    'user' => 'root',
-    'pass' => 'root'
-    ]){
+    public function __construct(){
+        $connect = [
+            'host' => $_ENV['DB_HOST'],
+            'db'   => $_ENV['DB_NAME'],
+            'user' => $_ENV['DB_USER'],
+            'pass' => $_ENV['DB_PASS']
+        ];
     $dsn = "mysql:host=".$connect['host'].";dbname=".$connect['db'].";charset=utf8mb4";
     $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

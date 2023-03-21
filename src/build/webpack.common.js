@@ -23,7 +23,8 @@ export default {
           globOptions: {
             ignore: [
               // '**/backend/vendor',
-              // '**/admin/.production.htaccess',
+              '**/backend/.prod.env',
+              '**/backend/.dev.env',
               // '**/admin/index.php',
             ],
           },

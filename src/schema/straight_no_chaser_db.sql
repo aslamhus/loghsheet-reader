@@ -6,7 +6,7 @@ create table if not exists `shows`(
     `id` int(11) AUTO_INCREMENT,
     `host` varchar(300) NOT NULL,
     `title` varchar(500) NULL,
-    `show_date` DATETIME,
+    `air_date` DATETIME,
     `date_created` DATETIME,
     `date_updated` DATETIME,
     PRIMARY KEY(`id`)
