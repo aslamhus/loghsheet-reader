@@ -32,7 +32,13 @@ const parseTextContent = (textContent) => {
   const date = findDate(textContent);
   parseColumns(textContent);
   findFields(textContent);
-  const tracks = filterRows();
+  const tracks = filterRows().map((trackObj) => {
+    return Object.entries(trackObj).reduce((acc, entry) => {
+      const [key, value] = entry;
+      acc[key] = value.trim();
+      return acc;
+    }, {});
+  });
   return { date, tracks };
 };
 
