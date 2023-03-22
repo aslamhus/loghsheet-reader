@@ -1,7 +1,7 @@
 /** host dropdown **/
 .show-container {
   --input-padding: 0.25rem;
-  --input-border: 2px solid black;
+  --input-border: 1px solid gray;
 }
 .show-container label {
   text-transform: uppercase;
@@ -47,4 +47,3 @@ input:focus {
   margin: 0.5rem 0;
   text-align: left;
 }
-/** PDF SHOW **/

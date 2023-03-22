@@ -29,7 +29,7 @@ table.cfuv-tracks td {
 }
 table.cfuv-tracks td span {
   font-size: 14px;
-  padding: 0.75rem 0.5rem;
+  padding: 0.35rem 0.15rem;
   text-align: left;
   vertical-align: top;
 }
@@ -44,6 +44,7 @@ table.cfuv-tracks td:nth-of-type(1) {
 }
 
 .pdf-ignore {
+  margin-bottom: 2rem;
   display: block;
 }
 

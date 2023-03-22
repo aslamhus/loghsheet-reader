@@ -1,8 +1,8 @@
 export const generatePDF = async (html) => {
   // const html = previewRef.current.innerHTML;
   // setShowControls(false);
-  togglePDFIgnoreContent(false);
-  togglePDFIgnoreContent(true);
+  // togglePDFIgnoreContent(false);
+  // togglePDFIgnoreContent(true);
 
   // setShowControls(true);
   const pdfBlob = await fetch('/straight-no-chaser/api/pdf/create.php', {

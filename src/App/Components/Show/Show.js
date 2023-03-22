@@ -152,7 +152,11 @@ export default function Show({
           <div className="info">
             <h3>CFUV 101.9 FM</h3>
             <p>Wednesdays 6pm - 8pm PST</p>
-            <a className="listen-link" href="http://cfuv.uvic.ca/cms/?shows=straight-no-chaser">
+            <a
+              className="listen-link"
+              target="_blank"
+              href="http://cfuv.uvic.ca/cms/?shows=straight-no-chaser"
+            >
               Listen to a live stream of last week's show
             </a>
           </div>
