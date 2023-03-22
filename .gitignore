@@ -3,3 +3,4 @@ node_modules
 src/jsPDF-1.3.2/
 vendor
 dist
+logs
