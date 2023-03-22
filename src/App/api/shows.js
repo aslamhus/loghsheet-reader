@@ -1,4 +1,4 @@
-export const updateShow = async ({ showId, title, host, date, tracks }) => {
+export const updateShow = async ({ showId, title, host, date, utc_timestamp, tracks }) => {
   return fetch('/straight-no-chaser/api/shows/update.php', {
     method: 'POST',
     headers: {
@@ -6,7 +6,7 @@ export const updateShow = async ({ showId, title, host, date, tracks }) => {
     },
     body: JSON.stringify({
       type: 'update',
-      show: { showId, title, host, air_date: date },
+      show: { showId, title, host, air_date: date, utc_timestamp: utc_timestamp / 1000 },
       tracks,
     }),
   }).then((res) => {
@@ -18,8 +18,7 @@ export const updateShow = async ({ showId, title, host, date, tracks }) => {
   });
 };
 
-export const createShow = async ({ title, host, date, tracks, replace = false }) => {
-  console.log(title, host, date, tracks, `replace: ${replace}`);
+export const createShow = async ({ title, host, date, utc_timestamp, tracks, replace = false }) => {
   return fetch('/straight-no-chaser/api/shows/create.php', {
     method: 'POST',
     headers: {
@@ -27,7 +26,7 @@ export const createShow = async ({ title, host, date, tracks, replace = false })
     },
     body: JSON.stringify({
       type: 'create',
-      show: { title, host, air_date: date },
+      show: { title, host, air_date: date, utc_timestamp: utc_timestamp / 1000 },
       tracks,
       replace,
     }),

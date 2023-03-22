@@ -17,10 +17,10 @@ export const getHTML = (el) => {
 
 const toggleShowPdfHtml = (shouldShow, el) => {
   const pdfIgnore = el.querySelectorAll('.pdf-ignore');
-  const pdfShow = el.querySelectorAll('.pdf-show');
-  pdfShow.forEach((el) => {
-    el.style.display = shouldShow ? 'block' : 'none';
-  });
+  // const pdfShow = el.querySelectorAll('.pdf-show');
+  // pdfShow.forEach((el) => {
+  //   el.style.display = shouldShow ? 'block' : 'none';
+  // });
   pdfIgnore.forEach((el) => {
     el.style.display = shouldShow ? 'none' : '';
   });

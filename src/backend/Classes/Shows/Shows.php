@@ -4,6 +4,7 @@ namespace LogsheetReader\Shows;
 
 use LogsheetReader\Database\DB;
 use \DateTime;
+use LogsheetReader\Log\Log;
 
 
 class Shows {
@@ -14,9 +15,11 @@ class Shows {
         $this->db = $db;
     }
 
-    public function create(string $host, string $title, string $air_date, array $tracks, $replace) : bool {
+    public function create(string $host, string $title, string $air_date, int $utc_timestamp, array $tracks, $replace) : bool {
         $show = null;
         // convert string date to date
+
+       
         $converted_air_date = $this->stringToDate($air_date);
         // check for conflicting show
         $conflictingShow = $this->getShowByWeek($converted_air_date);
@@ -29,14 +32,14 @@ class Shows {
             $show = $this->getShow($host, $title, $converted_air_date);
         } else {
             // update
-            $this->updateShow($conflictingShow['id'], $host, $title, $converted_air_date);
+            $this->updateShow($conflictingShow['id'], $host, $title, $converted_air_date, $utc_timestamp);
             $show = $conflictingShow;
         }
         // update or insert tracks
         return $this->updateTracks($show['id'], $tracks);
     }
 
-    public function update(int $showId, string $host, string $title, string $air_date, array $tracks) : bool{
+    public function update(int $showId, string $host, string $title, string $air_date,  int $utc_timestamp, array $tracks) : bool{
         // convert string date to date
         $converted_air_date = $this->stringToDate($air_date);
         // check for conflicting show
@@ -49,7 +52,7 @@ class Shows {
         } else {
             // update
             try {
-            $didUpdateShow  = $this->updateShow($show['id'], $host, $title, $converted_air_date);
+            $didUpdateShow  = $this->updateShow($show['id'], $host, $title, $converted_air_date, $utc_timestamp);
             $didUpdateTracks =$this->updateTracks($show['id'], $tracks);
             if(!$didUpdateShow || !$didUpdateTracks){
                 throw new \Exception('Failed to update show - updating either show or tracks failed');
@@ -67,6 +70,7 @@ class Shows {
         $stmt = $pdo->prepare("SELECT *, COUNT(*) as count FROM shows WHERE host = ? AND title = ? AND air_date = ?");
         $stmt->execute([$host, $title, $this->mysqlDate($air_date)]); 
         $result = $stmt->fetch();
+
         if($result['count'] > 1){
         throw new \Exception('There are multiple shows matching this date, title and host. Please check the database for an incorrect show entry');      
      } 
@@ -93,8 +97,10 @@ class Shows {
     public function getAllShows() : array {
         $pdo = $this->db->getPDO();
         $stmt = $pdo->prepare("SELECT *, UNIX_TIMESTAMP(air_date) AS timestamp FROM shows ORDER BY air_date DESC");
+
         $stmt->execute();
         $result = $stmt->fetchAll();
+
        return $result;
     }
 
@@ -105,6 +111,8 @@ class Shows {
         $stmt = $pdo->prepare($query);
         $stmt->execute([$show_id]);
         $result = $stmt->fetch();
+
+        Log::write("get show by id: ".$result['air_date'].PHP_EOL);
         
        return $result;
     }
@@ -152,15 +160,20 @@ class Shows {
  
 
     private function insertShow(string $host, string $title, DateTime $air_date) : bool{
+
+        Log::write("insert mysql_air_date (inserted to db): ".$this->mysqlDate($air_date).PHP_EOL);
         $pdo = $this->db->getPDO();
         $stmt = $pdo->prepare('INSERT INTO shows(`host`,`title`,`air_date`,`date_created`) VALUES(?,?,?,NOW())');
         return $stmt->execute([ $host,  $title, $this->mysqlDate($air_date)]);
     }
 
-    public function updateShow(int $id, string $host, string $title, DateTime $air_date) : bool{
+    public function updateShow(int $id, string $host, string $title, DateTime $air_date, int $utc_timestamp) : bool{
+
+        Log::write("update mysql_air_date (inserted to db): ".$this->mysqlDate($air_date).PHP_EOL);
+        Log::write("update utc_timestamp (inserted to db): ".$utc_timestamp.PHP_EOL);
         $pdo = $this->db->getPDO();
-        $stmt = $pdo->prepare('update shows set `host` = ?, `title` = ?, `air_date` = ?, `date_updated` = NOW() WHERE `id` = ?');
-        $stmt->execute([ $host,  $title, $this->mysqlDate($air_date), $id]);
+        $stmt = $pdo->prepare('update shows set `host` = ?, `title` = ?, `air_date` = FROM_UNIXTIME(?), `date_updated` = NOW() WHERE `id` = ?');
+        $stmt->execute([ $host,  $title, $utc_timestamp, $id]);
         return $stmt->execute();
     }
 

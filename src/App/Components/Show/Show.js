@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import TrackTable from '../TrackTable/TrackTable';
 import HostDropdown from './HostDropdown';
-import { getDate } from '@utils/utils';
+import { getDate, getYMDDate } from '@utils/utils';
 import { generatePDF } from '@api/pdf';
 import { downloadPDF, getTracksEditableContent, getHTML } from './utils';
 import { useApp } from '../../hooks/useApp';
@@ -10,6 +10,12 @@ import useConfirm from '../Common/CustomConfirm/useConfirm';
 import 'react-datepicker/dist/react-datepicker.css';
 import './show.css';
 
+/**
+ *
+ * @param {Object} props
+ * @property {string} props.date - date string, compatible with Javascript date object
+ * @returns
+ */
 export default function Show({
   tracks,
   date,
@@ -40,9 +46,11 @@ export default function Show({
     const body = {
       title: formData.get('title'),
       host: formData.get('host-dropdown'),
+      utc_timestamp: new Date(formData.get('air-date-picker')).getTime(),
       date: formData.get('air-date-picker'),
       tracks: getTracksEditableContent(trackTableRef),
     };
+
     if (onSave instanceof Function) {
       Promise.resolve(onSave(body))
         .catch(handleError)
@@ -55,7 +63,7 @@ export default function Show({
   const handleSaveAsPDF = async (event) => {
     const html = getHTML(showRef.current);
     const pdfBlob = await generatePDF(html).catch(handleError);
-    const filenameDate = getDate(date);
+    const filenameDate = getYMDDate(date).replace(/,/g, '');
     const filename = `${title ? `${title}` : 'Straight-no-chaser'}-${filenameDate}.pdf`.replace(
       /\s/g,
       '-'
@@ -103,6 +111,7 @@ export default function Show({
   }, [tracks, hasMadeChanges]);
 
   useEffect(() => {
+    console.log('3) date prop for Show', date);
     if (!hasMadeChanges && mounted) {
       setHasMadeChanges(true);
     }

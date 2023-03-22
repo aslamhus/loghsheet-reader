@@ -32,7 +32,7 @@ if(!empty($decoded->show) && !empty($decoded->tracks)){
 $db = new DB();
 $shows = new Shows($db);
 try {
-    $didCreate = $shows->create($show->host, $show->title, $show->air_date, $tracks, $replace);
+    $didCreate = $shows->create($show->host, $show->title, $show->air_date, $show->utc_timestamp,  $tracks, $replace);
     if($didCreate){
         http_response_code(200);
         echo json_encode(['create' => true]);

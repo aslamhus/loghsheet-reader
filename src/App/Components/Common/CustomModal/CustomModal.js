@@ -32,7 +32,6 @@ const CustomModal = (props) => {
   const handleDismiss = () => {
     if (props.fadeOut && !triggerFadeOut) {
       // trigger fade out then dismiss
-      console.log('dismiss fadeout!');
       setTriggerFadeOut(true);
     } else {
       // dismiss immediately

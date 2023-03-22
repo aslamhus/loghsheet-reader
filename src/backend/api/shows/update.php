@@ -32,7 +32,7 @@ if(!empty($decoded->show) && !empty($decoded->tracks)){
 $db = new DB();
 $shows = new Shows($db);
 try {
-    $didUpdate = $shows->update($show->showId, $show->host, $show->title, $show->air_date, $tracks);
+    $didUpdate = $shows->update($show->showId, $show->host, $show->title, $show->air_date,$show->utc_timestamp,  $tracks);
     if($didUpdate){
         http_response_code(200);
         echo json_encode(['update' => true]);

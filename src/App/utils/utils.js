@@ -9,3 +9,11 @@ export const getDate = (dateString) => {
     day: 'numeric',
   });
 };
+
+export const getYMDDate = (dateString) => {
+  if (!dateString) return '';
+  const d = new Date(dateString);
+  const month = d.toLocaleString('default', { month: 'long' });
+  const day = d.toLocaleDateString('default', { day: 'numeric' });
+  return `${d.getFullYear()}-${month}-${day}`;
+};

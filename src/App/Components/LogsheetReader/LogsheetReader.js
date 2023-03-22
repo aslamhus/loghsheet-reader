@@ -23,9 +23,11 @@ export default function LogsheetReader({}) {
     const [, year, month, day] = date.match(/([0-9]{4})-([0-9]{2})-([0-9]{2})/);
     dateFormatted.setFullYear(parseInt(year));
     /** DateObject set month is zero based  */
+    console.log('1) date', date);
     dateFormatted.setMonth(parseInt(month) - 1);
     dateFormatted.setDate(parseInt(day));
     dateFormatted.setHours(18);
+    console.log('2) dateFormatted', dateFormatted);
     setDate(dateFormatted);
     setTracks(tracks.map(convertPDFDataToDBSchema));
   };
@@ -43,7 +45,7 @@ export default function LogsheetReader({}) {
   };
 
   const onDateInputChange = (value) => {
-    // console.log('d', value);
+    console.log('dateInputChange (from datepicker)', value);
     setDate(value);
   };
 

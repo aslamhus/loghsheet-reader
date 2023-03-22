@@ -22,7 +22,6 @@ const Preview = React.forwardRef((props, ref) => {
 
   const handleCreateShow = async (body) => {
     const didSave = await createShow(body);
-    console.log('didSave', didSave);
     if (didSave.create == true) {
       setAlert({
         variant: 'info',
@@ -39,7 +38,6 @@ const Preview = React.forwardRef((props, ref) => {
       });
       if (overwriteConfirm) {
         const replace = await createShow({ ...body, replace: true });
-        console.log('replace', replace);
       }
     } else {
       setAlert({
