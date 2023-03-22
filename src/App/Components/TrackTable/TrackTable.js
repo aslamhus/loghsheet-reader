@@ -23,9 +23,9 @@ const TrackTable = React.forwardRef((props, ref) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Track title</th>
             <th>Artist</th>
             <th>Album</th>
+            <th>Track title</th>
             <th>Label</th>
           </tr>
         </thead>

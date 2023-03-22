@@ -5,9 +5,17 @@ import Form from 'react-bootstrap/Form';
 const hosts = ['Shaukat Husain', 'Demis Tsimon'];
 
 export default function HostDropdown({ host, onSelectHost, name }) {
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    if (onSelectHost instanceof Function) {
+      onSelectHost(value);
+    }
+  };
   return (
     <>
-      <Form.Select name="host-dropdown" aria-label="Default select example">
+      <Form.Select name="host-dropdown" aria-label="Default select example" onChange={handleChange}>
         <option disabled defaultValue={host}>
           select
         </option>

@@ -138,19 +138,24 @@ export default function Show({
           <label htmlFor="host-dropdown">Host:</label>
           <HostDropdown name="host-dropdown" host={host} onSelectHost={onSelectHost} />
         </div>
-        <div className="pdf-show">
-          <h1>Straight No Chaser CFUV 101.9 FM</h1>
-          {title && <h2>{title}</h2>}
-          {host && (
-            <p>
-              <strong>Hosted by {host}</strong>
-            </p>
-          )}
-          {date && (
-            <p>
-              <em>{getDate(date)}</em>
-            </p>
-          )}
+        <div
+          //  className="pdf-show"
+          className="pdf-show"
+        >
+          <div className="title">
+            <h1>Straight No Chaser</h1>
+
+            {title && <h2>{title}</h2>}
+            {host && <h3>Host: {host}</h3>}
+            {date && <h4>Air date: {getDate(date)}</h4>}
+          </div>
+          <div className="info">
+            <h3>CFUV 101.9 FM</h3>
+            <p>Wednesdays 6pm - 8pm PST</p>
+            <a className="listen-link" href="http://cfuv.uvic.ca/cms/?shows=straight-no-chaser">
+              Listen to a live stream of last week's show
+            </a>
+          </div>
         </div>
         <TrackTable
           onRegisterChange={() => setHasMadeChanges(true)}

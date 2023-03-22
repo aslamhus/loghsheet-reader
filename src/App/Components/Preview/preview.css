@@ -1,10 +1,3 @@
 .preview-container {
   margin-top: 2rem;
 }
-.show-container .pdf-show {
-  display: none;
-}
-
-.show-container .pdf-ignore {
-  display: block;
-}

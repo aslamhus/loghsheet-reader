@@ -21,6 +21,11 @@ export default function ShowTrackList({}) {
     setShowData({ ...showData, title });
   };
 
+  const onSelectHost = (host) => {
+    console.log('host', host);
+    setShowData({ ...showData, host });
+  };
+
   const handleUpdateShow = async (body) => {
     const didUpdate = await updateShow({ showId: showData.id, ...body });
     if (didUpdate.update == true) {
@@ -68,7 +73,7 @@ export default function ShowTrackList({}) {
           host={showData?.host}
           onTitleInputChange={onTitleInputChange}
           onDateInputChange={onDateInputChange}
-          onSelectHost={null}
+          onSelectHost={onSelectHost}
           onSave={handleUpdateShow}
           initialHasMadeChanges={false}
         />

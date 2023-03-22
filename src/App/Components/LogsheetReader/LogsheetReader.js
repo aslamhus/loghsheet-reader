@@ -13,7 +13,6 @@ export default function LogsheetReader({}) {
   const [host, setHost] = useState('');
 
   const selectFiles = async (event) => {
-    console.l;
     // setTracks([]);
     const fs = new FileSelect();
     fs.removeFiles();
@@ -48,6 +47,10 @@ export default function LogsheetReader({}) {
     setDate(value);
   };
 
+  const onSelectHost = (value) => {
+    setHost(value);
+  };
+
   return (
     <div className="controls pdf-ignore">
       <h1>Logsheet reader</h1>
@@ -60,7 +63,7 @@ export default function LogsheetReader({}) {
             title={title}
             onTitleInputChange={onTitleInputChange}
             onDateInputChange={onDateInputChange}
-            onSelectHost={(host) => setHost(host)}
+            onSelectHost={onSelectHost}
             host={host}
           ></Preview>
         </LocalizationProvider>
